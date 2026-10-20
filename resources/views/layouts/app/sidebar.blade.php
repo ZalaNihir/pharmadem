@@ -15,6 +15,15 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+                    <flux:sidebar.item icon="check-circle" :href="route('tasks.index')" :current="request()->routeIs('tasks.*')" wire:navigate>Tasks</flux:sidebar.item>
+                    <flux:sidebar.item icon="document-text" :href="route('updates.index')" :current="request()->routeIs('updates.*')" wire:navigate>Daily updates</flux:sidebar.item>
+                    @if(auth()->user()->hasAnyRole(['Admin', 'Manager']))
+                        <flux:sidebar.item icon="chart-bar" :href="route('reports.index')" :current="request()->routeIs('reports.*')" wire:navigate>Reports</flux:sidebar.item>
+                        <flux:sidebar.item icon="clipboard-document-check" :href="route('evaluations.index')" :current="request()->routeIs('evaluations.*')" wire:navigate>Evaluations</flux:sidebar.item>
+                    @else
+                        <flux:sidebar.item icon="clipboard-document-check" :href="route('evaluations.index')" :current="request()->routeIs('evaluations.*')" wire:navigate>My evaluations</flux:sidebar.item>
+                    @endif
+                    @role('Admin')<flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.*')" wire:navigate>User access</flux:sidebar.item>@endrole
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
